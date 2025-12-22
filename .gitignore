@@ -37,4 +37,8 @@
 # Ignore history file used by IRB for interactive Ruby.
 .irb_history
 
+# Ignore the default SQLite database.
+/db/*.sqlite3
+/db/*.sqlite3-*
+
 dump.rdb
