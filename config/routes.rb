@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  get 'foo/bar'
-  get 'foo/baz'
-  get 'staticpage/home'
-  get 'staticpage/help'
-  get 'staticpage/about'
-  get 'staticpage/contact'
+  get 'users/new'
   root "staticpage#home"
+  get "/help",    to: "staticpage#help"
+  get "/about",   to: "staticpage#about"
+  get "/contact", to: "staticpage#contact"
+  get "/signup",  to: "users#new" 
+
 end
