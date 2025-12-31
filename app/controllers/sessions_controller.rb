@@ -8,7 +8,8 @@ class SessionsController < ApplicationController
     if user&.authenticate(params[:session][:password])
       #if user && user.authenticate(params[:session][:password])と上と同じ意味
       reset_session      # ログインの直前に必ずこれを書くこと
-      remember user
+      params[:session][:remember_me] == '1' ? remember(user) : forget(user)
+      #remember user(この一行があったら、test通らんぞ。教科書間違ってるやんけ)
       log_in user
       redirect_to user
     else
@@ -18,7 +19,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    log_out
+    log_out if logged_in?
     redirect_to root_url, status: :see_other
   end
 end
