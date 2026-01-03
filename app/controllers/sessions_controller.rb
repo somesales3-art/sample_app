@@ -7,11 +7,12 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:session][:email].downcase)
     if user&.authenticate(params[:session][:password])
       #if user && user.authenticate(params[:session][:password])と上と同じ意味
+      forwarding_url = session[:forwarding_url]
       reset_session      # ログインの直前に必ずこれを書くこと
       params[:session][:remember_me] == '1' ? remember(user) : forget(user)
       #remember user(この一行があったら、test通らんぞ。教科書間違ってるやんけ)
       log_in user
-      redirect_to user
+      redirect_to forwarding_url || user
     else
       flash.now[:danger] = 'Invalid email/password combination'
       render 'new', status: :unprocessable_entity
